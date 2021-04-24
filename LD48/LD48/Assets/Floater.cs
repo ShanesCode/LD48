@@ -6,8 +6,8 @@ public class Floater : MonoBehaviour
 {
     float currentY;
 
-    float floatRange = 1.0f;
-    float floatSpeed = 0.5f;
+    [Range(0.1f, 5f)] float floatRange = 1.0f;
+    [Range(0.1f, 2f)] float floatSpeed = 0.5f;
     bool travellingUp = true;
 
     // Start is called before the first frame update
