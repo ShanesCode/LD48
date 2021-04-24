@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (KeyValuePair<string, bool> entry in pickups)
         {
-            Debug.Log("The pickup named: " + entry.Key + "has been picked up: " + entry.Value);
+            Debug.Log("The pickup named: " + entry.Key + "\thas been picked up: " + entry.Value);
         }
     }
 }
