@@ -6,8 +6,8 @@ public class Floater : MonoBehaviour
 {
     float currentY;
 
-    [Range(0.1f, 5f)] [SerializeField] float floatRange = 1.0f;
-    [Range(0.1f, 2f)] [SerializeField] float floatSpeed = 0.5f;
+    [Range(0.1f, 20f)] [SerializeField] float floatRange = 10.0f;
+    [Range(0.1f, 5f)] [SerializeField] float floatSpeed = 2.0f;
     bool travellingUp = true;
 
     // Start is called before the first frame update
