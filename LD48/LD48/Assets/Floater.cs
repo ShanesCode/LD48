@@ -6,7 +6,6 @@ public class Floater : MonoBehaviour
 {
     Vector3 brainTransform;
 
-    [Range(0.1f, 20f)] [SerializeField] float floatRange = 10.0f;
     [Range(0.1f, 5f)] [SerializeField] float floatSpeed = 2.0f;
 
     [SerializeField] private Transform[] waypoints;
