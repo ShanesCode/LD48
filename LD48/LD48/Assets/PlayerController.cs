@@ -14,10 +14,6 @@ public class PlayerController : MonoBehaviour
 
     private float moveX;
     private float moveY;
-    private Vector2 moveVec;
-    
-    public float maxMoveSpeed;
-    public float maxSpeed;
 
     private Rigidbody2D rb2d;
 
@@ -25,6 +21,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask juiceLM;
 
     private bool facingRight;
+
+    [Range(0.1f, 1.5f)] [SerializeField] private float m_MovementSmoothing = .05f;
+    private Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        submerged = Submerged();
+        Move(moveX * Time.fixedDeltaTime, moveY * Time.fixedDeltaTime);
     }
 
     // Update is called once per frame
@@ -45,61 +44,14 @@ public class PlayerController : MonoBehaviour
     {
         if (submerged)
         {
-            maxSpeed = maxMoveSpeed;
+            moveX = Input.GetAxisRaw("Horizontal") * moveSpeed;
+            moveY = Input.GetAxisRaw("Vertical") * moveSpeed;
         } else
         {
-            maxSpeed = maxMoveSpeed * 5;
+            moveX = 0;
+            moveY = 0;
         }
 
-        Debug.Log("Facing right: " + facingRight);
-        if (Input.GetAxis("Vertical") != 0 && submerged)
-        {
-            moveY = Input.GetAxis("Vertical") * moveSpeed;
-        }
-        else
-        {
-            if (moveY > -sinkSpeed)
-            {
-                // Sink
-                moveY -= sinkSpeed / 100;
-            } else
-            {
-                moveY += sinkSpeed / 100;
-            }
-        }
-
-        if (Input.GetAxis("Horizontal") != 0 && submerged)
-        {
-            moveX = Input.GetAxis("Horizontal") * moveSpeed;
-        }
-        else
-        {
-            if (Mathf.Abs(moveX) > 0.1)
-            {
-                if (moveX < 0)
-                {
-                    if (facingRight)
-                    {
-                        Flip();
-                    }
-                    moveX += maxSpeed / 100;
-                }
-                else
-                {
-                    if (!facingRight)
-                    {
-                        Flip();
-                    }
-                    moveX -= maxSpeed / 100;
-                }
-            } else
-            {
-                moveX = 0;
-            }
-        }
-
-        moveVec = moveX * transform.right + moveY * transform.up;
-        rb2d.AddForce(moveVec, ForceMode2D.Force);
         RotateToWorldCenter();
     }
 
@@ -145,7 +97,49 @@ public class PlayerController : MonoBehaviour
                 submerged_ = false;
             }
         }
+        Debug.Log("submerged: " + submerged);
         return submerged_;
+    }
+
+    public void Move(float moveX, float moveY)
+    {
+        submerged = Submerged();
+        
+        if (!submerged)
+        {
+            if (moveY == 0)
+            {
+                moveY = -sinkSpeed / 100 * 5;
+            }
+            Vector3 targetVelocity = moveY * 100f * transform.up;
+            // And then smoothing it out and applying it to the character
+            rb2d.velocity = Vector3.SmoothDamp(rb2d.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
+        } 
+        else
+        {
+            // Move the character by finding the target velocity
+            if (moveY == 0)
+            {
+                moveY = -sinkSpeed / 100;
+            }
+
+            Vector3 targetVelocity = moveX * 100f * transform.right + moveY * 100f * transform.up;
+            // And then smoothing it out and applying it to the character
+            rb2d.velocity = Vector3.SmoothDamp(rb2d.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
+
+            // If the input is moving the player right and the player is facing left...
+            if (moveX > 0 && !facingRight)
+            {
+                // ... flip the player.
+                Flip();
+            }
+            // Otherwise if the input is moving the player left and the player is facing right...
+            else if (moveX < 0 && facingRight)
+            {
+                // ... flip the player.
+                Flip();
+            }
+        }
     }
 
     private void Flip()
