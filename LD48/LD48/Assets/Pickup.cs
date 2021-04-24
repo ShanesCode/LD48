@@ -7,13 +7,13 @@ public class Pickup : MonoBehaviour
     private Rigidbody2D rb2d;
     private CircleCollider2D col;
     private GameObject gameManager;
-    public string pickup_name;
     // Start is called before the first frame update
     void Start()
     {
         gameObject.tag = "Pickup";
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager.GetComponent<GameManager>().pickups.Add(gameObject.name, false);
 
         rb2d = GetComponent<Rigidbody2D>();
         if (rb2d == null)

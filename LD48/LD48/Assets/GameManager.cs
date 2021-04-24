@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Dictionary<string, bool> pickups = new Dictionary<string, bool>()
-        {
-            { "Pickup0", false },
-            { "Pickup1", false },
-            { "Pickup2", false },
-            { "Pickup3", false },
-            { "Pickup4", false },
-            { "Pickup5", false },
-            { "Pickup6", false },
-            { "Pickup7", false },
-        };
+    public Dictionary<string, bool> pickups = new Dictionary<string, bool>();
+
+    private void Start()
+    {
+        LogInventory();
+    }
 
     public void UpdatePickups(GameObject pickup)
     {
-        pickups[pickup.GetComponent<Pickup>().pickup_name] = true;
+        pickups[pickup.name] = true;
+        LogInventory();
+    }
+
+    private void LogInventory()
+    {
+        foreach (KeyValuePair<string, bool> entry in pickups)
+        {
+            Debug.Log("The pickup named: " + entry.Key + "has been picked up: " + entry.Value);
+        }
     }
 }
