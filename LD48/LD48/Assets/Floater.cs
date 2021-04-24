@@ -28,7 +28,6 @@ public class Floater : MonoBehaviour
         Float();
 
         distance_to_waypoint = Vector3.Distance(transform.position, waypoints[waypointIndex].position);
-        Debug.Log("distance to waypoint: " + distance_to_waypoint);
         if (distance_to_waypoint < min_distance_to_waypoint)
         {
             IncreaseIndex();
@@ -37,7 +36,6 @@ public class Floater : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other){
         if(other.name == "Player"){
-            Debug.Log(gameObject.name + " had a collision with the player!");
             //add damage
             //add sfx
         }
