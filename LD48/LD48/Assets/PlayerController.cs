@@ -143,6 +143,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Damage(int damage, Vector3 relativePos)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+        else
+        {
+            Vector3 f = relativePos * bounceForce;
+            rb2d.AddForce(f, ForceMode2D.Impulse);
+        }
+    }
+
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
