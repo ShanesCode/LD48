@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
     public float sinkSpeed;
     public float moveSpeed;
     
-    public int playerHealth;
+    public int maxHealth;
+    public int currentHealth;
 
     public GameObject worldCenter;
     public GameObject brainJuice;
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private bool submerged;
     public LayerMask juiceLM;
+    
+    float bounceForce = 5;
 
     private bool facingRight;
 
