@@ -10,25 +10,49 @@ public class PlayerController : MonoBehaviour
     public int playerHealth;
 
     public GameObject worldCenter;
+    public GameObject brainJuice;
 
     private float moveX;
     private float moveY;
     private Vector2 moveVec;
     
+    public float maxMoveSpeed;
     public float maxSpeed;
 
     private Rigidbody2D rb2d;
+
+    private bool submerged;
+    public LayerMask juiceLM;
+
+    private bool facingRight;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        rb2d.AddForce(transform.up * -30);
+        submerged = true;
+        facingRight = false;
+    }
+
+    private void FixedUpdate()
+    {
+        submerged = Submerged();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Vertical") != 0)
+        if (submerged)
+        {
+            maxSpeed = maxMoveSpeed;
+        } else
+        {
+            maxSpeed = maxMoveSpeed * 5;
+        }
+
+        Debug.Log("Facing right: " + facingRight);
+        if (Input.GetAxis("Vertical") != 0 && submerged)
         {
             moveY = Input.GetAxis("Vertical") * moveSpeed;
         }
@@ -44,22 +68,33 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Horizontal") != 0)
+        if (Input.GetAxis("Horizontal") != 0 && submerged)
         {
             moveX = Input.GetAxis("Horizontal") * moveSpeed;
         }
         else
         {
-            if (moveX != 0)
+            if (Mathf.Abs(moveX) > 0.1)
             {
                 if (moveX < 0)
                 {
+                    if (facingRight)
+                    {
+                        Flip();
+                    }
                     moveX += maxSpeed / 100;
                 }
                 else
                 {
+                    if (!facingRight)
+                    {
+                        Flip();
+                    }
                     moveX -= maxSpeed / 100;
                 }
+            } else
+            {
+                moveX = 0;
             }
         }
 
@@ -80,6 +115,9 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, worldCenter.transform.position);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.forward);
     }
 
     void RotateToWorldCenter()
@@ -88,5 +126,36 @@ public class PlayerController : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, vecToWorldCenter);
         transform.rotation = rotation;
+    }
+
+    private bool Submerged()
+    {
+        bool submerged_ = true;
+        Collider2D[] colliders = Physics2D.OverlapCapsuleAll(brainJuice.transform.position, new Vector2(brainJuice.transform.localScale.x * 0.95f, brainJuice.transform.localScale.y * 0.95f), brainJuice.GetComponent<CapsuleCollider2D>().direction, brainJuice.transform.rotation.z);
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject == gameObject)
+            {
+                submerged_ = true;
+                break;
+            }
+            else
+            {
+                submerged_ = false;
+            }
+        }
+        return submerged_;
+    }
+
+    private void Flip()
+    {
+        // Switch the way the player is labelled as facing.
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
