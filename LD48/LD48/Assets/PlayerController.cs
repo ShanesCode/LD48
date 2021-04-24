@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
                 submerged_ = false;
             }
         }
-        Debug.Log("submerged: " + submerged);
+
         return submerged_;
     }
 
@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
             {
                 moveY = -sinkSpeed / 100 * 5;
             }
+
             Vector3 targetVelocity = moveY * 100f * transform.up;
             // And then smoothing it out and applying it to the character
             rb2d.velocity = Vector3.SmoothDamp(rb2d.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
