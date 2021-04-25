@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BatteryController : Pickup
 {
-    public int chargeAmount = 100;
+    public int healAmount = 100;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -17,7 +17,7 @@ public class BatteryController : Pickup
         if (other.gameObject.CompareTag("Player"))
         {
             gameManager.GetComponent<AudioSource>().clip = clip;
-            other.GetComponent<PlayerController>().Charge(chargeAmount);
+            other.GetComponent<PlayerController>().Heal(healAmount);
             base.OnContact();
         }
     }
