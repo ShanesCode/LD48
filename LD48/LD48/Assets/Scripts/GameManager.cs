@@ -87,6 +87,18 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadYourAsyncScene("MainMenuScene"));
     }
 
+    public void NextLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            StartCoroutine(LoadYourAsyncScene("Level2"));
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            StartCoroutine(LoadYourAsyncScene("VictoryScene"));
+        }
+    }
+
     IEnumerator LoadYourAsyncScene(string scene)
     {
         // The Application loads the Scene in the background as the current Scene runs.
