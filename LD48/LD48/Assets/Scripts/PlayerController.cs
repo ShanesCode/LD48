@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
+    public int healthDrainAmount = 3;
+    public float healthDrainTickLength = 1.0f;
+    private float healthDrainTimer;
+
     public GameObject worldCenter;
     public GameObject brainJuice;
 
@@ -64,6 +68,8 @@ public class PlayerController : MonoBehaviour
         nondamageClip = Resources.Load<AudioClip>("SFX/zapsplat_impacts_body_person_heavy_005_43768") as AudioClip;
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
+
+        healthDrainTimer = healthDrainTickLength;
     }
 
     private void FixedUpdate()
@@ -84,11 +90,19 @@ public class PlayerController : MonoBehaviour
             moveY = 0;
         }
 
-        Debug.Log("FlashTimer: " + flashTimer);
-        Debug.Log("recentlyHit: " + recentlyHit);
         if (recentlyHit)
         {
             flashOpacity();
+        }
+
+        if (healthDrainTimer >= 0)
+        {
+            healthDrainTimer -= Time.deltaTime;
+        }
+        else
+        {
+            currentHealth -= healthDrainAmount;
+            healthDrainTimer = healthDrainTickLength;
         }
 
         RotateToWorldCenter();
