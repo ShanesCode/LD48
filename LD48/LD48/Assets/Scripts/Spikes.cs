@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spikes : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    private PolygonCollider2D col;
+    private BoxCollider2D col;
 
     public int damage = 20;
 
@@ -18,10 +18,10 @@ public class Spikes : MonoBehaviour
         }
         rb2d.isKinematic = true;
 
-        col = GetComponent<PolygonCollider2D>();
+        col = GetComponent<BoxCollider2D>();
         if (col == null)
         {
-            col = gameObject.AddComponent(typeof(PolygonCollider2D)) as PolygonCollider2D;
+            col = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
         }
         col.isTrigger = true;
     }
