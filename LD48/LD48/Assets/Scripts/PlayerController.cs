@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool submerged;
     public LayerMask juiceLM;
     
-    float bounceForce = 20;
+    float bounceForce = 5;
 
     private bool facingRight;
 
