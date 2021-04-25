@@ -10,9 +10,6 @@ public class PlayerController : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
-    public int maxPower;
-    public int currentPower;
-
     public GameObject worldCenter;
     public GameObject brainJuice;
 
@@ -225,14 +222,14 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void Charge(int power)
+    public void Heal(int health)
     {
-        if ((currentPower + power) <= maxPower)
+        if ((currentHealth + health) <= maxHealth)
         {
-            currentPower += power;
+            currentHealth += health;
         } else
         {
-            currentPower = maxPower;
+            currentHealth = maxHealth;
         }
     }
 
