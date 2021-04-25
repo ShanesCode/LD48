@@ -7,7 +7,7 @@ public class Spikes : MonoBehaviour
     private Rigidbody2D rb2d;
     private PolygonCollider2D col;
 
-    public int damage = 5;
+    public int damage = 20;
 
     private void Start()
     {

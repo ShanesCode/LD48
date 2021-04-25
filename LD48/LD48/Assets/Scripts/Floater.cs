@@ -7,7 +7,7 @@ public class Floater : MonoBehaviour
     Vector3 brainTransform;
 
     [Range(0.1f, 10f)] [SerializeField] float floatSpeed = 2.0f;
-    public int damage = 5;
+    public int damage = 20;
 
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private int waypointIndex;
