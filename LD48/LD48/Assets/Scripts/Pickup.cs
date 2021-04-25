@@ -6,8 +6,8 @@ public class Pickup : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private PolygonCollider2D col;
-    public AudioClip clip;
-    public GameObject gameManager;
+    [HideInInspector] public AudioClip clip;
+    [HideInInspector] public GameObject gameManager;
     // Start is called before the first frame update
     public virtual void Start()
     {
