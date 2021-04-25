@@ -6,7 +6,7 @@ public class Floater : MonoBehaviour
 {
     Vector3 brainTransform;
 
-    [Range(0.1f, 5f)] [SerializeField] float floatSpeed = 2.0f;
+    [Range(0.1f, 10f)] [SerializeField] float floatSpeed = 2.0f;
     public int damage = 5;
 
     [SerializeField] private Transform[] waypoints;
@@ -46,6 +46,15 @@ public class Floater : MonoBehaviour
             p_relativePosition.y = p_relativePosition.y / vLength;
             //Damage player
             p.GetComponent<PlayerController>().Damage(damage, p_relativePosition);    
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        for (int i = 0, l = waypoints.Length - 1; i < l; i++)
+        {
+            Gizmos.DrawLine(waypoints[i].position, waypoints[i+1].position);
         }
     }
 
