@@ -160,6 +160,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Death()
+    {
+        Debug.Log("Player is dead.");
+        //do something
+    }
+
     private void Flip()
     {
         // Switch the way the player is labelled as facing.

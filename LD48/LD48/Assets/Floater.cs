@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Floater : MonoBehaviour
     Vector3 brainTransform;
 
     [Range(0.1f, 5f)] [SerializeField] float floatSpeed = 2.0f;
+    public int damage = 5;
 
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private int waypointIndex;
@@ -17,7 +19,7 @@ public class Floater : MonoBehaviour
     void Start()
     {
         brainTransform = GameObject.Find("Brain").transform.position;
-        min_distance_to_waypoint = 0.5f;
+        min_distance_to_waypoint = 0.1f;
     }
 
     // Update is called once per frame
