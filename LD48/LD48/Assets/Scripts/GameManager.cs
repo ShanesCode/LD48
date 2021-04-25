@@ -26,19 +26,6 @@ public class GameManager : MonoBehaviour
         {
             TogglePause();
         }
-
-        if (dead)
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                RestartLevel();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                QuitToMenu();
-            }
-        }
     }
 
     public void UpdateItems(GameObject item)
