@@ -38,7 +38,7 @@ public class FleshBlob : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("pulseTimer: " + pulseTimer);
+        //Debug.Log("pulseTimer: " + pulseTimer);
         localSizeChange = (pulseLength - pulseTimer) / pulseLength * sizeChange;
         if (pulseTimer >= 0)
         {
