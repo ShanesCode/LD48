@@ -38,6 +38,23 @@ public class FleshBlob : MonoBehaviour
 
     private void Update()
     {
+        Pulse();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.name == "Player")
+        {
+            ContactPoint2D contact = collision.GetContact(0);
+            Vector3 bounceDirection = -contact.normal;
+
+            //Damage player
+            collision.collider.GetComponent<PlayerController>().Damage(0, bounceDirection);
+        }
+    }
+
+    private void Pulse()
+    {
         //Debug.Log("pulseTimer: " + pulseTimer);
         localSizeChange = (pulseLength - pulseTimer) / pulseLength * sizeChange;
         if (pulseTimer >= 0)
@@ -53,23 +70,11 @@ public class FleshBlob : MonoBehaviour
             gameObject.transform.localScale = sizeVector;
 
             pulseTimer -= Time.deltaTime;
-        } 
+        }
         else
         {
             growing = !growing;
             pulseTimer = pulseLength;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.name == "Player")
-        {
-            ContactPoint2D contact = collision.GetContact(0);
-            Vector3 bounceDirection = -contact.normal;
-
-            //Damage player
-            collision.collider.GetComponent<PlayerController>().Damage(0, bounceDirection);
         }
     }
 }
