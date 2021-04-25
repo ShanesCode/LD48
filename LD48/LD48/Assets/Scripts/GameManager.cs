@@ -44,8 +44,11 @@ public class GameManager : MonoBehaviour
 
     public void Death()
     {
-        dead = true;
-        UIManager.GetComponent<UIManager>().MissionFailed();
+        if (!dead)
+        {
+            UIManager.GetComponent<UIManager>().MissionFailed();
+            dead = true;
+        }
     }
 
     public void TogglePause()
