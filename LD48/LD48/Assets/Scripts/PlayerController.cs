@@ -36,13 +36,18 @@ public class PlayerController : MonoBehaviour
     private int flashFlag;
     private Color spriteColor;
 
-    private AudioSource audio;
+    private AudioSource audioSource;
     private AudioClip damageClip;
     private AudioClip nondamageClip;
+
+    private bool alive;
+
+    public GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        alive = true;
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.AddForce(transform.up * -30);
         submerged = false;
@@ -53,10 +58,12 @@ public class PlayerController : MonoBehaviour
         flashTrigger = flashTimer / flashRate;
         flashFlag = (int)Mathf.Floor(flashTimer / flashTrigger);
         spriteColor = gameObject.GetComponent<SpriteRenderer>().color;
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         damageClip = Resources.Load<AudioClip>("SFX/zapsplat_impact_body_slam_hit_against_metal_surface_hard_002_43753") as AudioClip;
         nondamageClip = Resources.Load<AudioClip>("SFX/zapsplat_impacts_body_person_heavy_005_43768") as AudioClip;
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     private void FixedUpdate()
@@ -67,7 +74,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (submerged)
+        if (submerged && alive)
         {
             moveX = Input.GetAxisRaw("Horizontal") * moveSpeed;
             moveY = Input.GetAxisRaw("Vertical") * moveSpeed;
@@ -192,23 +199,24 @@ public class PlayerController : MonoBehaviour
             }
 
             // Play sound
-            audio.clip = damageClip;
-            audio.Play();
+            audioSource.clip = damageClip;
+            audioSource.Play();
         } else if (damage == 0)
         {
             // Walking into things which do no damage
             Vector3 bounceVector = bounceDirection * bounceForce;
             rb2d.AddForce(bounceVector, ForceMode2D.Impulse);
 
-            audio.clip = nondamageClip;
-            audio.Play();
+            audioSource.clip = nondamageClip;
+            audioSource.Play();
         }
     }
 
     public void Death()
     {
         Debug.Log("Player is dead.");
-        //do something
+        alive = false;
+        gameManager.GetComponent<GameManager>().Death();
     }
 
     private void Flip()
