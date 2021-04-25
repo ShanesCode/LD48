@@ -12,12 +12,24 @@ public class Brain : MonoBehaviour
     private Vector3 originalSizeVector;
     private Vector3 maxSizeVector;
     private Vector3 sizeVector;
+
+    private AudioSource audioSource;
+    private AudioClip clip;
     // Start is called before the first frame update
     void Start()
     {
         pulseTimer = pulseLength;
         originalSizeVector = gameObject.transform.localScale;
         maxSizeVector = originalSizeVector * (1 + sizeChange);
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+        }
+
+        clip = Resources.Load<AudioClip>("SFX/zapsplat_cartoon_squelch_squish_mouth_saliva_004_63698") as AudioClip;
+        audioSource.clip = clip;
     }
 
     private void Update()
@@ -47,6 +59,14 @@ public class Brain : MonoBehaviour
         {
             growing = !growing;
             pulseTimer = pulseLength;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player") && !audioSource.isPlaying)
+        {
+            audioSource.Play();
         }
     }
 }
