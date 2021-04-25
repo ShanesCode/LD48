@@ -5,10 +5,39 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Dictionary<string, bool> items = new Dictionary<string, bool>();
+    private GameObject UIManager;
+
+    private bool paused;
+    private bool dead;
 
     private void Start()
     {
+        dead = false;
+        UIManager = GameObject.FindGameObjectWithTag("UIManager");
+
         LogInventory();
+        paused = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            TogglePause();
+        }
+
+        if (dead)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RestartLevel();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                QuitToMenu();
+            }
+        }
     }
 
     public void UpdateItems(GameObject item)
@@ -23,5 +52,37 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("The item named: " + entry.Key + "\thas been picked up: " + entry.Value);
         }
+    }
+
+    public void Death()
+    {
+        dead = true;
+        UIManager.GetComponent<UIManager>().MissionFailed();
+    }
+
+    public void TogglePause()
+    {
+        if (!paused)
+        {
+            Time.timeScale = 0;
+            UIManager.GetComponent<UIManager>().Pause();
+            paused = true;
+        } 
+        else
+        {
+            Time.timeScale = 1;
+            UIManager.GetComponent<UIManager>().Unpause();
+            paused = false;
+        }
+    }
+
+    private void RestartLevel()
+    {
+
+    }
+
+    private void QuitToMenu()
+    {
+
     }
 }
