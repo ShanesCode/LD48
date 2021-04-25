@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject pauseMenu;
     public GameObject gameOver;
+    public GameObject gameOverLabelAndButtons;
+    [SerializeField] private float gameOverMenuDelay = 1.5f;
+    private float gameOverMenuTimer;
 
     public AudioMixer mixer;
     public Slider volume;
@@ -25,17 +28,31 @@ public class UIManager : MonoBehaviour
 
         volume.value = PlayerPrefs.GetFloat("volume", 1.0f);
         volume.onValueChanged.AddListener(SetVolume);
+        gameOverMenuTimer = gameOverMenuDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
         healthBar.GetComponent<Slider>().value = player.GetComponent<PlayerController>().currentHealth;
+
+        if (gameOver.activeSelf)
+        {
+            if (gameOverMenuTimer >= 0)
+            {
+                gameOverMenuTimer -= Time.deltaTime;
+            }
+            else
+            {
+                gameOverLabelAndButtons.SetActive(true);
+            }
+        }
     }
 
     public void MissionFailed()
     {
         gameOver.SetActive(true);
+        gameOverLabelAndButtons.SetActive(false);
     }
 
     public void Pause()
