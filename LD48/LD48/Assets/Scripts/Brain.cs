@@ -15,6 +15,8 @@ public class Brain : MonoBehaviour
 
     private AudioSource audioSource;
     private AudioClip clip;
+
+    private GameObject gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class Brain : MonoBehaviour
 
         clip = Resources.Load<AudioClip>("SFX/zapsplat_cartoon_squelch_squish_mouth_saliva_004_63698") as AudioClip;
         audioSource.clip = clip;
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     private void Update()
@@ -67,6 +71,7 @@ public class Brain : MonoBehaviour
         if (collision.collider.CompareTag("Player") && !audioSource.isPlaying)
         {
             audioSource.Play();
+            gameManager.GetComponent<GameManager>().NextLevel();
         }
     }
 }
