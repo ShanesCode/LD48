@@ -95,14 +95,24 @@ public class PlayerController : MonoBehaviour
             flashOpacity();
         }
 
-        if (healthDrainTimer >= 0)
+        if (alive)
         {
-            healthDrainTimer -= Time.deltaTime;
-        }
-        else
-        {
-            currentHealth -= healthDrainAmount;
-            healthDrainTimer = healthDrainTickLength;
+            if (healthDrainTimer >= 0)
+            {
+                healthDrainTimer -= Time.deltaTime;
+            }
+            else
+            {
+                if (currentHealth - healthDrainAmount > 0)
+                {
+                    currentHealth -= healthDrainAmount;
+                    healthDrainTimer = healthDrainTickLength;
+                }
+                else
+                {
+                    Death();
+                }
+            }
         }
 
         RotateToWorldCenter();
