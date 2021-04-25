@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour
     private Color spriteColor;
 
     private AudioSource audio;
-    private AudioClip clip;
+    private AudioClip damageClip;
+    private AudioClip nondamageClip;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +57,10 @@ public class PlayerController : MonoBehaviour
         flashFlag = (int)Mathf.Floor(flashTimer / flashTrigger);
         spriteColor = gameObject.GetComponent<SpriteRenderer>().color;
         audio = GetComponent<AudioSource>();
-}
+
+        damageClip = Resources.Load<AudioClip>("SFX/zapsplat_impact_body_slam_hit_against_metal_surface_hard_002_43753") as AudioClip;
+        nondamageClip = Resources.Load<AudioClip>("SFX/zapsplat_impacts_body_person_heavy_005_43768") as AudioClip;
+    }
 
     private void FixedUpdate()
     {
@@ -174,24 +178,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Damage(int damage, Vector3 relativePos)
+    public void Damage(int damage, Vector3 bounceDirection)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (!recentlyHit && damage != 0)
         {
-            Death();
-        }
-        else
-        {
-            Vector3 f = relativePos * bounceForce;
-            rb2d.AddForce(f, ForceMode2D.Impulse);
-            recentlyHit = true;
-        }
+            currentHealth -= damage;
+            if (currentHealth <= 0)
+            {
+                Death();
+            }
+            else
+            {
+                Vector3 bounceVector = bounceDirection * bounceForce;
+                rb2d.AddForce(bounceVector, ForceMode2D.Impulse);
+                recentlyHit = true;
+            }
 
-        // Play sound
-        clip = Resources.Load<AudioClip>("SFX/zapsplat_impact_body_slam_hit_against_metal_surface_hard_002_43753") as AudioClip;
-        audio.clip = clip;
-        audio.Play();
+            // Play sound
+            audio.clip = damageClip;
+            audio.Play();
+        } else if (damage == 0)
+        {
+            // Walking into things which do no damage
+            Vector3 bounceVector = bounceDirection * bounceForce;
+            rb2d.AddForce(bounceVector, ForceMode2D.Impulse);
+
+            audio.clip = nondamageClip;
+            audio.Play();
+        }
     }
 
     public void Death()
