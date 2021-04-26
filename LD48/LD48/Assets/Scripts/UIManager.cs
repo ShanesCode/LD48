@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
     public AudioMixer mixer;
     public Slider volume;
 
+    private AudioSource audioSource;
+    private AudioClip deathTentacles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,14 @@ public class UIManager : MonoBehaviour
         volume.value = PlayerPrefs.GetFloat("volume", 1.0f);
         volume.onValueChanged.AddListener(SetVolume);
         gameOverMenuTimer = gameOverMenuDelay;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+        }
+
+        deathTentacles = Resources.Load<AudioClip>("SFX/horror_flesh_guts_movement_003") as AudioClip;
     }
 
     // Update is called once per frame
@@ -53,6 +64,8 @@ public class UIManager : MonoBehaviour
     {
         gameOver.SetActive(true);
         gameOverLabelAndButtons.SetActive(false);
+        audioSource.clip = deathTentacles;
+        audioSource.Play();
     }
 
     public void Pause()
