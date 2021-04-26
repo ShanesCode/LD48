@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private float healthDrainTimer;
 
     public GameObject worldCenter;
-    public GameObject brainJuice;
 
     private float moveX;
     private float moveY;
@@ -23,7 +22,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
 
     private bool submerged;
-    public LayerMask juiceLM;
     
     float bounceForce = 5;
 
