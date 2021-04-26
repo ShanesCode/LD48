@@ -229,7 +229,6 @@ public class PlayerController : MonoBehaviour
 
     public void Death()
     {
-        Debug.Log("Player is dead.");
         alive = false;
         gameManager.GetComponent<GameManager>().Death();
     }
