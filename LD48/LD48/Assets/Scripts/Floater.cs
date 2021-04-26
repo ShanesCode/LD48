@@ -78,7 +78,5 @@ public class Floater : MonoBehaviour
         {
             waypointIndex = 0;
         }
-
-        Float();
     }
 }
