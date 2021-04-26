@@ -10,9 +10,10 @@ public class BatteryController : Pickup
 
     // Start is called before the first frame update
     public override void Start()
-    {
+    {      
         base.Start();
         clip = Resources.Load<AudioClip>("SFX/jessey_drake_synth_theremin_robot_wobble_power_up_short_snth_jd") as AudioClip;
+        highlight.GetComponent<SpriteRenderer>().color = new Color(255.0f / 255.0f, 155.0f / 255.0f, 0.0f, 0.3f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
