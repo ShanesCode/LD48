@@ -22,9 +22,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (!dead)
         {
-            TogglePause();
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                TogglePause();
+            }
         }
     }
 
