@@ -27,7 +27,7 @@ public class Floater : MonoBehaviour
         transform.rotation = RotateToWorldCenter(brainTransform);
         Float();
 
-        distance_to_waypoint = Vector3.Distance(transform.position, waypoints[waypointIndex].position);
+        distance_to_waypoint = Vector2.Distance(transform.position, waypoints[waypointIndex].position);
         if (distance_to_waypoint < min_distance_to_waypoint)
         {
             IncreaseIndex();
