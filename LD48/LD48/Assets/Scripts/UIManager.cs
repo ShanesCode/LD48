@@ -29,15 +29,11 @@ public class UIManager : MonoBehaviour
         maxHealth = player.GetComponent<PlayerController>().maxHealth;
         healthBar.GetComponent<Slider>().maxValue = maxHealth;
 
-        volume.value = PlayerPrefs.GetFloat("volume", 1.0f);
+        volume.value = PlayerPrefs.GetFloat("volume", 0.5f);
         volume.onValueChanged.AddListener(SetVolume);
         gameOverMenuTimer = gameOverMenuDelay;
 
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-        }
 
         deathTentacles = Resources.Load<AudioClip>("SFX/horror_flesh_guts_movement_003") as AudioClip;
     }

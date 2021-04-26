@@ -25,11 +25,6 @@ public class Brain : MonoBehaviour
         maxSizeVector = originalSizeVector * (1 + sizeChange);
 
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-        }
-
         clip = Resources.Load<AudioClip>("SFX/zapsplat_cartoon_squelch_squish_mouth_saliva_004_63698") as AudioClip;
         audioSource.clip = clip;
 

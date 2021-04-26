@@ -30,11 +30,6 @@ public class Switch : MonoBehaviour
         anim.SetBool("pressed", pressed);
 
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-        }
-
         clip = Resources.Load<AudioClip>("SFX/zapsplat_household_heater_bathroom_switch_on") as AudioClip;
         audioSource.clip = clip;
     }

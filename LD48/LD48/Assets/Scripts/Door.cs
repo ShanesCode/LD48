@@ -27,12 +27,7 @@ public class Door : MonoBehaviour
         anim.SetBool("open", open);
 
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-        }
         audioSource.spatialBlend = 0.9f;
-
         clip = Resources.Load<AudioClip>("SFX/zapsplat_horror_gore_guts_bloody_squeeze_002_29269") as AudioClip;
         audioSource.clip = clip;
     }
