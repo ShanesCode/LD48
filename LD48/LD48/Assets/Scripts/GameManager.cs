@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         dead = false;
         UIManager = GameObject.FindGameObjectWithTag("UIManager");
-
+        
         LogInventory();
         paused = false;
     }

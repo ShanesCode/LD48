@@ -12,7 +12,7 @@ public class BrainBG : MonoBehaviour
     private Vector3 originalSizeVector;
     private Vector3 maxSizeVector;
     private Vector3 sizeVector;
-
+    
     // Start is called before the first frame update
     void Start()
     {

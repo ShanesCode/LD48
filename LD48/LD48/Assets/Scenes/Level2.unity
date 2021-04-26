@@ -685,7 +685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975837136366932562, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: maxHealth
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8975837136366932562, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: moveSpeed
@@ -713,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 1833341856}
     - target: {fileID: 8975837136366932562, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: currentHealth
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8975837136366932562, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: healthDrainAmount
@@ -733,11 +733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8975837136366932563, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.59
+      value: -8.98
       objectReference: {fileID: 0}
     - target: {fileID: 8975837136366932563, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.29
+      value: 6.55
       objectReference: {fileID: 0}
     - target: {fileID: 8975837136366932563, guid: 438e7e98b6fa27c449ae4f79a4379edc, type: 3}
       propertyPath: m_LocalPosition.z
