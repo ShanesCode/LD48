@@ -77,7 +77,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7647510835327090757}
   m_Layer: 0
-  m_Name: Floater1
+  m_Name: Floater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,8 +109,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7647510835811217197}
   - component: {fileID: 7647510835811217196}
+  - component: {fileID: 1579439776309216350}
   m_Layer: 0
-  m_Name: floater1
+  m_Name: floaterSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,6 +183,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1579439776309216350
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647510835811217198}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 159410fe12ae47c49862b6ca054fd6d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7647510835994305394
 GameObject:
   m_ObjectHideFlags: 0
