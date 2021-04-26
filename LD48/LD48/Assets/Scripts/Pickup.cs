@@ -8,6 +8,7 @@ public class Pickup : MonoBehaviour
     private PolygonCollider2D col;
     [HideInInspector] public AudioClip clip;
     [HideInInspector] public GameObject gameManager;
+    private GameObject UIManager;
 
     [HideInInspector] public GameObject highlight;
     
@@ -40,6 +41,7 @@ public class Pickup : MonoBehaviour
         gameObject.tag = "Pickup";
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        UIManager = GameObject.FindGameObjectWithTag("UIManager");
 
         rb2d = GetComponent<Rigidbody2D>();
         if (rb2d == null)
@@ -68,6 +70,15 @@ public class Pickup : MonoBehaviour
 
         gameObject.SetActive(false);
         highlight.SetActive(false);
+
+        int len = UIManager.GetComponent<UIManager>().traumaFragments.Length;
+        for (int i = 0; i < len; i++)
+        {
+            if (name.ToLower() == UIManager.GetComponent<UIManager>().traumaFragments[i].name.ToLower())
+            {
+                UIManager.GetComponent<UIManager>().traumaFragments[i].color = Color.white;
+            }
+        }
     }
 
     private void Pulse(GameObject obj)

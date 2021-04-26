@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     private AudioSource audioSource;
     private AudioClip deathTentacles;
 
+    private Color traumaColor;
+    public Image[] traumaFragments;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,14 @@ public class UIManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         deathTentacles = Resources.Load<AudioClip>("SFX/horror_flesh_guts_movement_003") as AudioClip;
+
+        traumaColor = Color.white;
+        traumaColor.a = 0.3f;
+
+        for (int i = 0; i < traumaFragments.Length; i++)
+        {
+            traumaFragments[i].color = traumaColor;
+        }
     }
 
     // Update is called once per frame
