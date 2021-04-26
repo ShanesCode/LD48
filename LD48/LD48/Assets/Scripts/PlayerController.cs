@@ -143,30 +143,23 @@ public class PlayerController : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    private bool Submerged()
+    private bool IsSubmerged()
     {
-        bool submerged_ = true;
-        Collider2D[] colliders = Physics2D.OverlapCapsuleAll(brainJuice.transform.position, new Vector2(brainJuice.transform.localScale.x * 0.95f, brainJuice.transform.localScale.y * 0.95f), brainJuice.GetComponent<CapsuleCollider2D>().direction, brainJuice.transform.rotation.z);
+        Collider2D[] colliders = Physics2D.OverlapCapsuleAll(transform.position, new Vector2(transform.localScale.x, transform.localScale.y), gameObject.GetComponent<CapsuleCollider2D>().direction, transform.rotation.z);
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject == gameObject)
+            if (colliders[i].gameObject.layer == 3)//if object is on juice layer
             {
-                submerged_ = true;
-                break;
-            }
-            else
-            {
-                submerged_ = false;
+                return true;
             }
         }
-
-        return submerged_;
+        return false;
     }
 
     public void Move(float moveX, float moveY)
     {
-        submerged = Submerged();
+        submerged = IsSubmerged();
         
         if (!submerged)
         {
