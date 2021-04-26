@@ -24,6 +24,7 @@ public class Spikes : MonoBehaviour
             col = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
         }
         col.isTrigger = true;
+        col.size = new Vector2(col.size.x, col.size.y / 2);
     }
 
     void OnTriggerStay2D(Collider2D other)
